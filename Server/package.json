@@ -5,10 +5,15 @@
     "start": "node dist/server.js"
   },
   "devDependencies": {
+    "@types/express": "^5.0.6",
     "@types/node": "^25.5.0",
     "eslint": "^10.1.0",
     "prettier": "^3.8.1",
     "tsx": "^4.21.0",
     "typescript": "^6.0.2"
+  },
+  "dependencies": {
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1"
   }
 }

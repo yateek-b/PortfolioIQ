@@ -32,6 +32,10 @@ build/
 # Next.js
 frontend/.next/
 frontend/out/
+frontend/.env
+
+# Server
+Server/.env
 
 # -----------------------------
 # TypeScript
