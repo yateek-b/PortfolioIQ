@@ -1,0 +1,14 @@
+{
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js"
+  },
+  "devDependencies": {
+    "@types/node": "^25.5.0",
+    "eslint": "^10.1.0",
+    "prettier": "^3.8.1",
+    "tsx": "^4.21.0",
+    "typescript": "^6.0.2"
+  }
+}
