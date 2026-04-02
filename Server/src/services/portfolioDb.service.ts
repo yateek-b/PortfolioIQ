@@ -1,51 +1,5 @@
-import mongoose, { Schema, Document } from "mongoose";
-
-/* -------------------------------------------------------
- * 1️⃣ Portfolio Schema
- * ------------------------------------------------------- */
-
-interface Holding {
-  asset_id: string;
-  asset_type: string;
-  sector: string;
-  weight: number;
-  purchase_price: number;
-}
-
-export interface Portfolio extends Document {
-  client_id: string;
-  portfolio_value: number;
-  risk_profile: string;
-  investment_horizon_years: number;
-  holdings: Holding[];
-}
-
-const HoldingSchema = new Schema<Holding>({
-  asset_id: { type: String, required: true },
-  asset_type: { type: String, required: true },
-  sector: { type: String, required: true },
-  weight: { type: Number, required: true },
-  purchase_price: { type: Number, required: true },
-});
-
-const PortfolioSchema = new Schema<Portfolio>(
-  {
-    client_id: { type: String, required: true, unique: true },
-    portfolio_value: { type: Number, required: true },
-    risk_profile: { type: String, required: true },
-    investment_horizon_years: { type: Number, required: true },
-    holdings: { type: [HoldingSchema], required: true },
-  },
-  { timestamps: true }
-);
-
-const PortfolioModel =
-  mongoose.models.Portfolio ||
-  mongoose.model<Portfolio>("Portfolio", PortfolioSchema);
-
-/* -------------------------------------------------------
- * 2️⃣ Connection Handling (Reusable)
- * ------------------------------------------------------- */
+import mongoose from "mongoose";
+import PortfolioModel, { Portfolio } from "../models/portfolio.model";
 
 let isConnected = false;
 
@@ -68,10 +22,7 @@ export async function connectDB() {
   }
 }
 
-/* -------------------------------------------------------
- * 3️⃣ Create Portfolio
- * ------------------------------------------------------- */
-export async function createPortfolio(data: Portfolio) {
+export async function createPortfolio(data: Partial<Portfolio>) {
   try {
     await connectDB();
     const newPortfolio = await PortfolioModel.create(data);
@@ -82,9 +33,6 @@ export async function createPortfolio(data: Portfolio) {
   }
 }
 
-/* -------------------------------------------------------
- * 4️⃣ Get Portfolio by Client ID
- * ------------------------------------------------------- */
 export async function getPortfolioByClientId(clientId: string) {
   try {
     await connectDB();
@@ -95,9 +43,6 @@ export async function getPortfolioByClientId(clientId: string) {
   }
 }
 
-/* -------------------------------------------------------
- * 5️⃣ Get All Portfolios
- * ------------------------------------------------------- */
 export async function getAllPortfolios() {
   try {
     await connectDB();
