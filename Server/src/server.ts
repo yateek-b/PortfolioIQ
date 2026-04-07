@@ -5,6 +5,7 @@ import express from "express";
 
 // Optional: if you have routes
 import testRoutes from "./routes/test.route";
+import portfolioRoutes from "./routes/portfolio.routes";
 import newsRoutes from "./routes/news.routes";
 
 const app = express();
@@ -19,6 +20,7 @@ app.get("/", (req, res) => {
 
 // Routes
 app.use("/api", testRoutes);
+app.use("/", portfolioRoutes);
 app.use("/api", newsRoutes);
 
 // Port
